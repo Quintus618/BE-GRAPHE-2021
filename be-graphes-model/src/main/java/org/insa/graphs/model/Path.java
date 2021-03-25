@@ -36,7 +36,51 @@ public class Path {
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
         // TODO:
-        return new Path(graph, arcs);
+        
+        if (nodes.size() == 0) {  //AUCUN NOEUD
+        	return new Path(graph);
+        }
+        else if (nodes.size() == 1) { //CAS 1 Noeud 
+        	return new Path(graph, nodes.get(0));
+        }
+        else { //DANS TOUS LES AUTRES CAS
+        	
+			boolean arccourt_test = false;
+			Arc arccourt = null;
+        	
+        	//PARCOURS DE LA LISTE DE NOEUDS
+        	for (int i = 0 ; i < nodes.size() - 1 ; i++) {
+        		
+        		//PARCOURS DES ARCS AYANT POUR ORIGINE LE NOEUD EN QUESTION
+        		for (int j = 0; j < nodes.get(i).getNumberOfSuccessors(); j++) {
+        			Arc arcsucc = nodes.get(i).getSuccessors().get(j);
+        			if(arcsucc.getDestination().equals(nodes.get(i + 1))) { // SI L'ARC MENE AU BON NOEUD
+        				
+        				if(!arccourt_test) { //Initialisation
+        					arccourt = arcsucc;
+        					arccourt_test = true;
+        				}
+        				else if (arcsucc.getMinimumTravelTime() < arccourt.getMinimumTravelTime()) { // On regarde si l'arc n'est pas plus court
+        					arccourt = arcsucc;
+        				}
+        				
+        			}
+        			
+        		}
+        		
+        		if(arccourt == null) { //LE CHEMIN N'EST PAS VALIDE
+        			throw new IllegalArgumentException();
+        		}
+        		else { //On AJOUTE L'ARC
+        			arcs.add(arccourt);
+        			arccourt_test = false;
+        		}
+        		
+        	}
+        	
+            return new Path(graph, arcs);
+        }
+
     }
 
     /**
@@ -56,8 +100,51 @@ public class Path {
     public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
-        // TODO:
-        return new Path(graph, arcs);
+        
+        if (nodes.size() == 0) {  //AUCUN NOEUD
+        	return new Path(graph);
+        }
+        else if (nodes.size() == 1) { //CAS 1 Noeud 
+        	return new Path(graph, nodes.get(0));
+        }
+        else { //DANS TOUS LES AUTRES CAS
+        	
+			boolean arccourt_test = false;
+			Arc arccourt = null;
+        	
+        	//PARCOURS DE LA LISTE DE NOEUDS
+        	for (int i = 0 ; i < nodes.size() - 1 ; i++) {
+        		
+        		//PARCOURS DES ARCS AYANT POUR ORIGINE LE NOEUD EN QUESTION
+        		for (int j = 0; j < nodes.get(i).getNumberOfSuccessors(); j++) {
+        			Arc arcsucc = nodes.get(i).getSuccessors().get(j);
+        			if(arcsucc.getDestination().equals(nodes.get(i + 1))) { // SI L'ARC MENE AU BON NOEUD
+        				
+        				if(!arccourt_test) { //Initialisation
+        					arccourt = arcsucc;
+        					arccourt_test = true;
+        				}
+        				else if (arcsucc.getLength() < arccourt.getLength()) { // On regarde si l'arc n'est pas plus court
+        					arccourt = arcsucc;
+        				}
+        				
+        			}
+        			
+        		}
+        		
+        		if(arccourt == null) { //LE CHEMIN N'EST PAS VALIDE
+        			throw new IllegalArgumentException();
+        		}
+        		else { //On AJOUTE L'ARC
+        			arcs.add(arccourt);
+        			arccourt_test = false;
+        		}
+        		
+        	}
+        	
+            return new Path(graph, arcs);
+        }
+
     }
 
     /**
