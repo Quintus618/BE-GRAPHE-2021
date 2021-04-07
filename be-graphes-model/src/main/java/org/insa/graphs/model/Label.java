@@ -2,18 +2,18 @@ package org.insa.graphs.model;
 
 public class Label {
 	
-	private final Node courant; 
+	private Node courant; 
 	private final Node pere;
 	
 	private boolean marque;
-	private int cout;
+	private double cout;
 	
 	//Constructeur de la classe Label
 	public Label (Node courant) {
 		this.courant = courant;
 		this.pere = null;
 		this.marque = false;
-		this.cout = -1;     //Je choisis la convention d'un nombre négatif pour dire que le coût n'est pas défini
+		this.cout = 1.0/0.0;     //Je choisis la convention infini pour un noeud ou le cout est inconnu
 	}
 	
 	//Ensemble de GET
@@ -29,8 +29,13 @@ public class Label {
 		return this.marque;
 	}
 	
-	public int getCout() {
+	public double getCout() {
 		return this.cout;
+	}
+	
+	//ENSEMBLE DE Set
+	public void setCourant(Node Courant) {
+		this.courant = Courant;
 	}
 
 }
