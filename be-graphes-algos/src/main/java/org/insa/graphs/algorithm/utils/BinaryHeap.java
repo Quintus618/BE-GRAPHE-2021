@@ -152,7 +152,7 @@ public class BinaryHeap<E extends Comparable<E>> implements PriorityQueue<E> {
         		indexdefin=--this.currentSize;
         		if (indexdefin>index) { //L'élément que l'on souhaite supprimer n'est pas le dernier élément du tas
 	        		Elementdutas = this.array.get(indexdefin);
-	        		this.array.set(index, Elementdutas);
+	        		this.arraySet(index, Elementdutas);
 	        		this.percolateDown(index);
 	        		this.percolateUp(index);	        		
         		}
