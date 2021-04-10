@@ -1,9 +1,9 @@
 package org.insa.graphs.algorithm.shortestpath;
 import java.util.ArrayList;
-
+import java.util.Collections;
 import org.insa.graphs.algorithm.utils.BinaryHeap;
 import org.insa.graphs.model.*;
-
+import org.insa.graphs.algorithm.AbstractSolution.Status;
 public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 
 	protected int nombre_sommets;
@@ -39,7 +39,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         
         boolean cond_arret = false;
         double cout_algo;
-        while ((!mon_tas.isEmpty()) && (!cond_arret)) { //Tant qu'on a pas traité tous les sommets
+        while ((!mon_tas.isEmpty()) && (!cond_arret)) { //Tant qu'on a pas traité tous les sommets	
         	
         	Label noeud_ac = mon_tas.deleteMin(); //On enlève le min du tas
         	notifyNodeMarked(noeud_ac.getCourant());
@@ -51,6 +51,10 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         	}
         	
         	for(Arc a : noeud_ac.getCourant().getSuccessors()) { //On regarde tous les successeurs
+        		
+        		if (!data.isAllowed(a)) { //ON SAUTE CETTE DONNEE SI ELLE N'EST PAS PERMISE (VOITURE, PAS VOITURE) 
+        			continue;             //Si on est en vélo, dans l'application java, on programme les chemins pour piéton 
+        		}
         		
         		if(tableauLabels[a.getDestination().getId()] == null) {
         			notifyDestinationReached(a.getDestination());
@@ -79,6 +83,29 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         	
         }
         
+		// SI LA DESTINATION EST INACCESSIBLE, PAS POSSIBLE
+		if (arcsPredecesseurs[data.getDestination().getId()] == null) {
+			solution = new ShortestPathSolution(data, Status.INFEASIBLE);
+		} else {
+
+			//DESTINATION ATTEINTE
+			notifyDestinationReached(data.getDestination());
+
+			//CREATION DU CHEMIN
+			ArrayList<Arc> arcs = new ArrayList<>();
+			Arc arc = arcsPredecesseurs[data.getDestination().getId()];
+
+			while (arc != null) {
+				arcs.add(arc);
+				arc = arcsPredecesseurs[arc.getOrigin().getId()];
+			}
+
+			//ON INVERSE LE CHEMIN POUR COMMENCER DE L'ORIGINE
+			Collections.reverse(arcs);
+
+			//GENERATION DE LA SOLUTION
+			solution = new ShortestPathSolution(data, Status.OPTIMAL, new Path(graphe, arcs));
+		}
         return solution;
     }
     
