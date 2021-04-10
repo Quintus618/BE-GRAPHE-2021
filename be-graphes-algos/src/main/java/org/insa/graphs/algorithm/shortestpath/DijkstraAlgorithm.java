@@ -44,7 +44,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         	Label noeud_ac = mon_tas.deleteMin(); //On enlève le min du tas
         	notifyNodeMarked(noeud_ac.getCourant());
         	noeud_ac.setMarque(true); //On marque ce noeud actuel
-        	
+        	System.out.println("Cout: " + noeud_ac.getCout());
         	if(noeud_ac.getCourant() == destination) { //On est sur la destination
         		cout_algo = noeud_ac.getCout();
         		cond_arret = true;
@@ -57,7 +57,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         		}
         		
         		if(tableauLabels[a.getDestination().getId()] == null) {
-        			notifyDestinationReached(a.getDestination());
+        			notifyNodeReached(a.getDestination());
         			tableauLabels[a.getDestination().getId()] = newLabel(a.getDestination(), data);
         		}
         		
