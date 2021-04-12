@@ -44,13 +44,20 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         	Label noeud_ac = mon_tas.deleteMin(); //On enlève le min du tas
         	notifyNodeMarked(noeud_ac.getCourant());
         	noeud_ac.setMarque(true); //On marque ce noeud actuel
-        	System.out.println("Cout: " + noeud_ac.getCout());
+        	
+        	//System.out.println("Cout: " + noeud_ac.getCout()); //Test coût croissant OK
+        	
+        	
         	if(noeud_ac.getCourant() == destination) { //On est sur la destination
         		cout_algo = noeud_ac.getCout();
         		cond_arret = true;
         	}
+        	int nb_success_parcourus = 0;
+        	//System.out.println("Nb de successeurs: " + noeud_ac.getCourant().getNumberOfSuccessors()); //Test du nombre de successeurs OK
         	
         	for(Arc a : noeud_ac.getCourant().getSuccessors()) { //On regarde tous les successeurs
+        		
+        		//nb_success_parcourus++; //Test du nombre de successeurs OK
         		
         		if (!data.isAllowed(a)) { //ON SAUTE CETTE DONNEE SI ELLE N'EST PAS PERMISE (VOITURE, PAS VOITURE) 
         			continue;             //Si on est en vélo, dans l'application java, on programme les chemins pour piéton 
@@ -76,11 +83,12 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         				
         				mon_tas.insert(tableauLabels[a.getDestination().getId()]); //INSERTION DE Y DANS TAS
         				arcsPredecesseurs[a.getDestination().getId()] = a;
+        				//System.out.println(mon_tas.toString()); //Validité du tas OK testé sur des petites distances
         			}
         			
         		}
         	}
-        	
+        	//System.out.println("Nb de successeurs parcourus: " + nb_success_parcourus); //Test du nombre de successeurs OK
         }
         
 		// SI LA DESTINATION EST INACCESSIBLE, PAS POSSIBLE
@@ -104,6 +112,8 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 			Collections.reverse(arcs);
 
 			//GENERATION DE LA SOLUTION
+			//System.out.println("Chemin valide: " + new Path(graphe, arcs).isValid());  //Test si le chemin est valide OK
+			//System.out.println("Longueur Chemin: " + new Path(graphe, arcs).getLength()); // Test de la longueur du chemin, comparaison avec résultat Dijkstra sur l'application
 			solution = new ShortestPathSolution(data, Status.OPTIMAL, new Path(graphe, arcs));
 		}
         return solution;
