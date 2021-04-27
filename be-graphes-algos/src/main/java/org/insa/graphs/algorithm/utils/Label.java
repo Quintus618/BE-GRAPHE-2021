@@ -1,4 +1,5 @@
-package org.insa.graphs.model;
+package org.insa.graphs.algorithm.utils;
+import org.insa.graphs.model.*;
 
 public class Label implements Comparable<Label> { //Permettant de mettre des labels dans mon tas
 	

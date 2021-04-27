@@ -1,7 +1,7 @@
 package org.insa.graphs.algorithm.shortestpath;
 import java.util.ArrayList;
 import java.util.Collections;
-import org.insa.graphs.algorithm.utils.BinaryHeap;
+import org.insa.graphs.algorithm.utils.*;
 import org.insa.graphs.model.*;
 import org.insa.graphs.algorithm.AbstractSolution.Status;
 public class DijkstraAlgorithm extends ShortestPathAlgorithm {
