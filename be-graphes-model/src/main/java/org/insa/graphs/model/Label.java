@@ -38,6 +38,11 @@ public class Label implements Comparable<Label> { //Permettant de mettre des lab
 		return this.appartientTas;
 	}
 	
+	//Modification en vue de l'implémentation de l'AStar
+	public double getTotalCost(){
+		return this.cout;
+	}
+	
 	//ENSEMBLE DE Set
 	public void setCourant(Node Courant) {
 		this.courant = Courant;
@@ -62,10 +67,10 @@ public class Label implements Comparable<Label> { //Permettant de mettre des lab
 	//Methode qui doit être définie car abstract
 	public int compareTo(Label autre) {
         int resultat;
-        if(this.getCout() < autre.getCout()) {
+        if(this.getTotalCost() < autre.getTotalCost()) { //Modification pour A*
         	resultat = -1;
         }
-        else if (this.getCout() == autre.getCout()) {
+        else if (this.getTotalCost() == autre.getTotalCost()) { //Modification pour A*
         	resultat = 0;
         }
         else {
