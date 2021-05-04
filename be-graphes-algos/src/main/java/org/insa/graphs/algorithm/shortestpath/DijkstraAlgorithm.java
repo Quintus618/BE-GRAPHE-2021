@@ -45,8 +45,8 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         	notifyNodeMarked(noeud_ac.getCourant());
         	noeud_ac.setMarque(true); //On marque ce noeud actuel
         	
-        	//System.out.println("Cout: " + noeud_ac.getCout()); //Test coût croissant OK
-        	
+        	//System.out.println("Cout: " + noeud_ac.getCout()); //Test coût croissant OK pour Dijkstra
+        	System.out.println("Cout: " + noeud_ac.getTotalCost()); //Test coût croissant OK pour A*
         	
         	if(noeud_ac.getCourant() == destination) { //On est sur la destination
         		cout_algo = noeud_ac.getCout();
@@ -112,8 +112,8 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 			Collections.reverse(arcs);
 
 			//GENERATION DE LA SOLUTION
-			//System.out.println("Chemin valide: " + new Path(graphe, arcs).isValid());  //Test si le chemin est valide OK
-			//System.out.println("Longueur Chemin: " + new Path(graphe, arcs).getLength()); // Test de la longueur du chemin, comparaison avec résultat Dijkstra sur l'application
+			System.out.println("Chemin valide: " + new Path(graphe, arcs).isValid());  //Test si le chemin est valide OK
+			System.out.println("Longueur Chemin: " + new Path(graphe, arcs).getLength()); // Test de la longueur du chemin, comparaison avec résultat Dijkstra sur l'application
 			solution = new ShortestPathSolution(data, Status.OPTIMAL, new Path(graphe, arcs));
 		}
         return solution;
