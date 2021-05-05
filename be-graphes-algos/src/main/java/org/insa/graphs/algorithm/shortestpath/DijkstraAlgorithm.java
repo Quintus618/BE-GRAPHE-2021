@@ -94,6 +94,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 		// SI LA DESTINATION EST INACCESSIBLE, PAS POSSIBLE
 		if (arcsPredecesseurs[data.getDestination().getId()] == null) {
 			solution = new ShortestPathSolution(data, Status.INFEASIBLE);
+			System.out.println("Coucou");
 		} else {
 
 			//DESTINATION ATTEINTE
