@@ -66,12 +66,12 @@ public class dijkstra_test {
     @BeforeClass
     public static void Init() throws Exception{
     	
-    	 ArcInspector arcInspector1 = ArcInspectorFactory.getAllFilters().get(0);
-    	 ArcInspector arcInspector2 = ArcInspectorFactory.getAllFilters().get(0);
-    	 ArcInspector arcInspector3 = ArcInspectorFactory.getAllFilters().get(0);
-    	 ArcInspector arcInspector4 = ArcInspectorFactory.getAllFilters().get(0);
-    	 ArcInspector arcInspector5 = ArcInspectorFactory.getAllFilters().get(0);
-    	 ArcInspector arcInspector6 = ArcInspectorFactory.getAllFilters().get(0);
+    	ArcInspector arcInspector1 = ArcInspectorFactory.getAllFilters().get(0);
+    	ArcInspector arcInspector2 = ArcInspectorFactory.getAllFilters().get(0);
+    	ArcInspector arcInspector3 = ArcInspectorFactory.getAllFilters().get(0);
+    	ArcInspector arcInspector4 = ArcInspectorFactory.getAllFilters().get(0);
+    	ArcInspector arcInspector5 = ArcInspectorFactory.getAllFilters().get(0);
+    	ArcInspector arcInspector6 = ArcInspectorFactory.getAllFilters().get(0);
     	    
     	
     	

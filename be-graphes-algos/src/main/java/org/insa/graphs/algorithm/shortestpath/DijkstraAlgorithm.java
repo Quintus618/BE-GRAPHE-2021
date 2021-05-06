@@ -84,6 +84,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         				mon_tas.insert(tableauLabels[a.getDestination().getId()]); //INSERTION DE Y DANS TAS
         				arcsPredecesseurs[a.getDestination().getId()] = a;
         				//System.out.println(mon_tas.toString()); //Validité du tas OK testé sur des petites distances
+        				System.out.println("Tas valide: " + mon_tas.isValid());
         			}
         			
         		}
