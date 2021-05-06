@@ -79,4 +79,8 @@ public class Label implements Comparable<Label> { //Permettant de mettre des lab
         }
         return resultat;
 	}
+	
+	public String toString() {
+		return (String.valueOf(this.getTotalCost()));
+	}
 }

@@ -46,7 +46,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         	noeud_ac.setMarque(true); //On marque ce noeud actuel
         	
         	//System.out.println("Cout: " + noeud_ac.getCout()); //Test coût croissant OK pour Dijkstra
-        	System.out.println("Cout: " + noeud_ac.getTotalCost()); //Test coût croissant OK pour A*
+        	//System.out.println("Cout: " + noeud_ac.getTotalCost()); //Test coût croissant OK pour A*
         	
         	if(noeud_ac.getCourant() == destination) { //On est sur la destination
         		cout_algo = noeud_ac.getCout();
@@ -83,7 +83,8 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         				
         				mon_tas.insert(tableauLabels[a.getDestination().getId()]); //INSERTION DE Y DANS TAS
         				arcsPredecesseurs[a.getDestination().getId()] = a;
-        				//System.out.println(mon_tas.toString()); //Validité du tas OK testé sur des petites distances
+        				System.out.println(mon_tas.toString()); //Validité du tas OK testé sur des petites distances
+        				System.out.println("Chips");
         			}
         			
         		}
@@ -94,7 +95,6 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 		// SI LA DESTINATION EST INACCESSIBLE, PAS POSSIBLE
 		if (arcsPredecesseurs[data.getDestination().getId()] == null) {
 			solution = new ShortestPathSolution(data, Status.INFEASIBLE);
-			System.out.println("Coucou");
 		} else {
 
 			//DESTINATION ATTEINTE

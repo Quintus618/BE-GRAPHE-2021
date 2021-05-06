@@ -52,7 +52,7 @@ public class dijkstra_test {
 				reader2);
     	
     	data1 = generationPathData(graph1, 50, 500, arcInspector1);
-    	data2 = generationPathData(graph1, 50, 50, arcInspector1);
+    	data2 = generationPathData(graph1, 50, 50, arcInspector2);
     	//data3 = generationPathData(graph1, -1, 50, arcInspector1);
     	//data4 = generationPathData(graph1, 50, -1, arcInspector1);
     	data5 = generationPathData(graph1, 50, 80, arcInspector5);
