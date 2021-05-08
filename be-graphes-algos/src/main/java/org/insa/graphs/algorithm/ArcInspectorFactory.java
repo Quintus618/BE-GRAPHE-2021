@@ -171,6 +171,38 @@ public class ArcInspectorFactory {
         // Add your own filters here (do not forget to implement toString()
         // to get an understandable output!):
 
+       // Non-private roads for bicycle:
+        filters.add(new ArcInspector() {
+
+            @Override
+            public boolean isAllowed(Arc arc) {
+                return arc.getRoadInformation().getAccessRestrictions()
+                        .isAllowedForAny(AccessMode.BICYCLE, EnumSet.complementOf(EnumSet
+                                .of(AccessRestriction.FORBIDDEN, AccessRestriction.PRIVATE)));
+            }
+
+            @Override
+            public double getCost(Arc arc) {
+                return arc.getTravelTime(
+                        Math.min(getMaximumSpeed(), arc.getRoadInformation().getMaximumSpeed()));
+            }
+
+            @Override
+            public String toString() {
+                return "Fastest path for bicycle";
+            }
+
+            @Override
+            public int getMaximumSpeed() {
+                return 5;
+            }
+
+            @Override
+            public Mode getMode() {
+                return Mode.TIME;
+            }
+        });
+
         return filters;
     }
 

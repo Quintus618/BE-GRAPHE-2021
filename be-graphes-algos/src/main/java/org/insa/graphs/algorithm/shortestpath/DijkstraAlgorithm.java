@@ -60,8 +60,10 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         		//nb_success_parcourus++; //Test du nombre de successeurs OK
         		
         		if (!data.isAllowed(a)) { //ON SAUTE CETTE DONNEE SI ELLE N'EST PAS PERMISE (VOITURE, PAS VOITURE) 
-        			continue;             //Si on est en vélo, dans l'application java, on programme les chemins pour piéton 
-        		}
+        			continue;             //Si on est en vélo, dans l'application java, on programme les chemins pour piéton et vélo
+        		}                         //Ou sinon on peut créer notre propre filtre dans ArcInspectorFactory
+        								  //J'ai créé le filtre FastestPAth for bicycle, sinon on peut utiliser fastestpath for pedestrians 
+        								  //Qui d'après le ArcInspectorFactory autorise piéton et vélo
         		
         		if(tableauLabels[a.getDestination().getId()] == null) {
         			notifyNodeReached(a.getDestination());
