@@ -78,9 +78,9 @@ public class scenarioTest {
     	//Init ArcInspector
     	ArcInspector arcInspector1 = ArcInspectorFactory.getAllFilters().get(0); //Tous les moyens de transports permis Longueur
     	ArcInspector arcInspector11 = ArcInspectorFactory.getAllFilters().get(2); //Tous les moyens de transports permis Temps
-    	ArcInspector arcInspector2 = ArcInspectorFactory.getAllFilters().get(4); //Que les piétons et vélos pour la longueur
+    	ArcInspector arcInspector2 = ArcInspectorFactory.getAllFilters().get(4); //Que les piétons pour la longueur
     	ArcInspector arcInspector3 = ArcInspectorFactory.getAllFilters().get(1); //Que les voitures	pour la longueur
-    	ArcInspector arcInspector4 = ArcInspectorFactory.getAllFilters().get(5); //Que les piétons et vélos pour le temps
+    	ArcInspector arcInspector4 = ArcInspectorFactory.getAllFilters().get(5); //Que les piétons pour le temps
     	ArcInspector arcInspector5 = ArcInspectorFactory.getAllFilters().get(3); //Que les voitures	pour le temps 
     	
     	//Graphe INSA
@@ -157,7 +157,7 @@ public class scenarioTest {
         
         
         //TEMPS
-        /****UNIQUEMENT PIETONS ET VELOS****/
+        /****UNIQUEMENT PIETONS ****/
         //INSA
         data77 = generationPathData(graph1, 284, 1012, arcInspector4);
         test_Bellman44 = new BellmanFordAlgorithm(data77).doRun();
@@ -194,7 +194,7 @@ public class scenarioTest {
 		assertEquals(false, test_Astar2.isFeasible());
 		assertEquals(false, test_Astar3.isFeasible());
 		
-		/**************Que les vélos*************/
+		/**************Que les piétons*************/
 		//INSA
 		assertEquals(true, test_Dijkstra7.getPath().isValid());
 		assertEquals(true, test_Bellman4.getPath().isValid());
@@ -214,7 +214,7 @@ public class scenarioTest {
 		assertEquals(test_Bellman1.getPath().getLength(), test_Dijkstra1.getPath().getLength(), 0.0);
 		assertEquals(test_Bellman1.getPath().getLength(), test_Astar1.getPath().getLength(), 0.0);
 		
-		//QUE LES VELOS
+		//QUE LES PIETONS
 		assertEquals(test_Bellman4.getPath().getLength(), test_Dijkstra7.getPath().getLength(), 0.0);
 		assertEquals(test_Bellman4.getPath().getLength(), test_Astar7.getPath().getLength(), 0.0);
 		
@@ -230,7 +230,7 @@ public class scenarioTest {
 		assertEquals(test_Bellman11.getPath().getMinimumTravelTime(), test_Dijkstra11.getPath().getMinimumTravelTime(), 0.0);
 		assertEquals(test_Bellman11.getPath().getMinimumTravelTime(), test_Astar11.getPath().getMinimumTravelTime(), 0.0);
 		
-		//QUE LES VELOS
+		//QUE LES PIETONS
 		assertEquals(test_Bellman44.getPath().getMinimumTravelTime(), test_Dijkstra77.getPath().getMinimumTravelTime(), 0.0);
 		assertEquals(test_Bellman44.getPath().getMinimumTravelTime(), test_Astar77.getPath().getMinimumTravelTime(), 0.0);
 		
@@ -242,14 +242,14 @@ public class scenarioTest {
 	@Test
 	public void difference_chemin_entre_differents_moyens_de_transport_INSA() throws Exception {
 		
-		//Différence en distance entre vélo et voiture
+		//Différence en distance entre piéton et voiture
 		assertFalse(test_Bellman4.getPath().getLength() == test_Bellman5.getPath().getLength());
 		assertTrue(test_Bellman4.getPath().getLength() == test_Dijkstra7.getPath().getLength());
 		assertFalse(test_Bellman4.getPath().getLength() == test_Dijkstra8.getPath().getLength());
 		assertTrue(test_Bellman4.getPath().getLength() == test_Astar7.getPath().getLength());
 		assertFalse(test_Bellman4.getPath().getLength() == test_Astar8.getPath().getLength());
 		
-		//Différence en temps entre vélo et voiture
+		//Différence en temps entre piéton et voiture
 		assertFalse(test_Bellman44.getPath().getMinimumTravelTime() == test_Bellman55.getPath().getMinimumTravelTime());
 		assertTrue(test_Bellman44.getPath().getMinimumTravelTime() == test_Dijkstra77.getPath().getMinimumTravelTime());
 		assertFalse(test_Bellman44.getPath().getMinimumTravelTime() == test_Dijkstra88.getPath().getMinimumTravelTime());
