@@ -72,6 +72,21 @@ public class scenarioTest {
     	return node;
     }
     
+    /*SCENARIOS*/
+    /*data1 : chemin normale avec tous les moyens de transports sur la carte INSA
+     *data11 : chemin normale avec tous les moyens de transports sur la carte INSA coût en temps
+     *data2 : origine/destination confondues avec tous les moyens de transports INSA 
+     *data3 : chemin infaisable avec tous les moyens de transports INSA
+     *data4 : chemin normal avec tous les moyens de transports sur la carte Bretagne
+     *data44 : chemin normale avec tous les moyens de transports sur la carte Bretagne coût en temps
+     *data5 : origine/destination confondues avec tous les moyens de transports Bretagne
+     *data6 : chemin infaisable avec tous les moyens de transports Bretagne
+     *data7 : chemin normale en tant que piéton sur la carte INSA
+     *data77 : chemin normale en tant que piéton sur la carte INSA ayant pour coût le temps
+     *data8 : chemin normale en voiture sur la carte INSA
+     *data88 : chemin normale en voiture sur la carte INSA ayant pour coût le temps
+     */
+    
     @BeforeClass
     public static void Init() throws Exception{
     	
@@ -129,7 +144,7 @@ public class scenarioTest {
     	data11 = generationPathData(graph1, 50, 500, arcInspector11);
     	
     	//Chemin normal Bretagne
-    	data44 = generationPathData(graph2, 50, 126989, arcInspector11);
+    	data44 = generationPathData(graph2, 50, 624708, arcInspector11);
     	
     	test_Bellman11 = new BellmanFordAlgorithm(data11).doRun();
     	test_Dijkstra11 = new DijkstraAlgorithm(data11).doRun();
@@ -140,7 +155,7 @@ public class scenarioTest {
         
     	
     	//DISTANCE
-        /****UNIQUEMENT PIETONS ET VELOS****/
+        /****UNIQUEMENT PIETONS****/
         //INSA
         data7 = generationPathData(graph1, 284, 1012, arcInspector2);
         test_Bellman4 = new BellmanFordAlgorithm(data7).doRun();
@@ -177,6 +192,7 @@ public class scenarioTest {
 /*******************************************************************************/
     
     /******************************TEST*******************************************/
+    //On teste la faisabilité des chemins
 	@Test
     public void test_chemin_faisable_avec_oracle_INSA() throws Exception { 	
         
@@ -207,6 +223,7 @@ public class scenarioTest {
 		assertEquals(true, test_Astar8.getPath().isValid());
     }
 	
+	//On regarde que Dijkstra et Astar retournent la même solution que BellmanFord lorsque la distance est le coût
 	@Test
 	public void test_chemin_distance_avec_oracle_INSA() throws Exception {		
 		//CAS DES CHEMINS VALIDES
@@ -223,6 +240,7 @@ public class scenarioTest {
 		assertEquals(test_Bellman5.getPath().getLength(), test_Astar8.getPath().getLength(), 0.0);
 	}
 	
+	//On regarde que Dijkstra et Astar retournent la même solution que BellmanFord lorsque le temps est le coût
 	@Test
 	public void test_chemin_temps_avec_oracle_INSA() throws Exception {		
 		//CAS DES CHEMINS VALIDES
@@ -239,6 +257,7 @@ public class scenarioTest {
 		assertEquals(test_Bellman55.getPath().getMinimumTravelTime(), test_Astar88.getPath().getMinimumTravelTime(), 0.0);
 	}
 	
+	//On met en évidence que selon les moyens de transports utilisés, les solutions ne sont pas les mêmes
 	@Test
 	public void difference_chemin_entre_differents_moyens_de_transport_INSA() throws Exception {
 		
@@ -257,6 +276,7 @@ public class scenarioTest {
 		assertFalse(test_Bellman44.getPath().getMinimumTravelTime() == test_Astar88.getPath().getMinimumTravelTime());
 	}
 	
+	//On vérifie la validité des chemins
 	@Test
     public void test_chemin_faisable_sans_oracle_Bretagne() throws Exception { 	
         
@@ -272,5 +292,35 @@ public class scenarioTest {
 		assertEquals(false, test_Astar6.isFeasible());
 		
     }
+	
+	//On vérifie l'égalité des solutions retournées entre Dijkstra et Astar
+	@Test
+	public void test_chemin_egal_entre_Dijkstra_Astar_sans_oracle() throws Exception {
+		
+		//Test lorsque la distance est le coût
+		assertEquals(test_Dijkstra4.getPath().getLength(), test_Astar4.getPath().getLength(), 0.0);
+		
+		//Test lorsque le temps est le coût
+		assertEquals(test_Dijkstra44.getPath().getMinimumTravelTime(), test_Astar44.getPath().getMinimumTravelTime(), 0.0);
+	}
+	
+	/*Ces tests ne garantissent pas l'optimalité de la solution. Nous avons un résultat qui montre une certaine performance avec les tests
+	 * ci dessous mais pas l'optimalité.
+	 */
+	
+	//On compare la distance retournée entre le plus court chemin que retourne Dijkstra et le chemin le plus rapide que l'on peut créer avec la
+	//l'algorithme Dijkstra. On s'attend à avoir une borne sup de notre solution.
+	@Test
+	public void test_le_plus_court_chemin_distance_plus_court_en_distance_que_plus_court_en_temps_sans_oracle() {
+		assertTrue(test_Dijkstra4.getPath().getLength() <= test_Dijkstra44.getPath().getLength());
+		assertTrue(test_Astar4.getPath().getLength() <= test_Astar44.getPath().getLength());
+	}
+	
+	//On fait la même chose qu'au dessus mais cette fois ci en raisonnant avec le temps comme coût
+	@Test
+	public void test_le_plus_court_chemin_temps_plus_court_en_temps_que_plus_court_en_distance_sans_oracle() {
+		assertTrue(test_Dijkstra4.getPath().getMinimumTravelTime() <= test_Dijkstra44.getPath().getMinimumTravelTime());
+		assertTrue(test_Astar4.getPath().getMinimumTravelTime() <= test_Astar44.getPath().getMinimumTravelTime());
+	}
 
 }
